@@ -23,6 +23,28 @@
 - winston 日志库
 - uuid  唯一id库，骨架里面主要用来日志里面记录requestId，便于快速查看当次请求日志
 
+global日志记录使用方法:
+```javascript
+Logger.info("测试",'这是info');
+Logger.warn("warn测试",'这是warn');
+Logger.debug("这是debug",['这是测试内容']);
+Logger.error("这是error",{a:333});
+```
+logs目录中会按天生成日志，日志格式如下
+```shell
+1c72f08e-ebd4-42b8-8160-0cf1f976eae9 | 2022-09-25 20:45:02 | INFO | 测试 | 这是info
+1c72f08e-ebd4-42b8-8160-0cf1f976eae9 | 2022-09-25 20:45:02 | WARN | warn测试 | 这是warn
+1c72f08e-ebd4-42b8-8160-0cf1f976eae9 | 2022-09-25 20:45:02 | DEBUG | 这是debug | ["这是测试内容"]
+1c72f08e-ebd4-42b8-8160-0cf1f976eae9 | 2022-09-25 20:45:02 | ERROR | 这是error | {"a":333}
+```
+
+Redis使用方法如下，可以使用ioredis下任何方法，支持vscode编辑器提示
+```javascript
+const redis = RedisSingleton.getInstance();
+const result = await redis.set("name");
+const r = RedisSingleton.getInstance();
+const data = await r.get("name");
+```
 
 Model层做了薄薄的封装，提供了几个基本的方法，
 
